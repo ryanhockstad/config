@@ -171,7 +171,7 @@ return {
     },
   },
 
-  -- Highlight, edit, and navigate code 
+  -- Highlight, edit, and navigate code with TreeSitter
 	{
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
