@@ -56,9 +56,6 @@ local servers = {
 			diagnostics = { disable = { "missing-fields" } },
 		},
 	},
-	-- Not servers, but formatters
-	stylua = {},
-	golines = {},
 }
 
 -- Setup neovim lua configuration
