@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+bindkey -s ^f "^Q~/.config/bin/tmux-sessionizer^M"  
+
 export LESSHISTFILE=/home/plurn/.cache/lesshst
 export BROWSER=wslview
 export KUBECONFIG=/home/plurn/.kube/homelab.kubeconfig
