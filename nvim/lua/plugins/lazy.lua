@@ -1,8 +1,8 @@
 return {
-  { 
+	{
 		"folke/neoconf.nvim",
 		cmd = "Neoconf",
 		config = true,
-		dependencies = {'neovim/nvim-lspconfig'}
+		dependencies = { "neovim/nvim-lspconfig" },
 	},
 }

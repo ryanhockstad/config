@@ -2,6 +2,12 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- [[ Configure LSP ]]
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = "single",
+})
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = "double",
+})
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
 	-- This function lets us more easily define mappings specific
@@ -90,12 +96,43 @@ local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 luasnip.config.setup({})
 
+--   פּ ﯟ   some other good icons
+local kind_icons = {
+	Text = "",
+	Method = "m",
+	Function = "",
+	Constructor = "",
+	Field = "",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "",
+	Unit = "",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+	Copilot = "",
+}
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+
 	completion = {
 		completeopt = "menu,menuone,noinsert",
 	},
@@ -112,6 +149,8 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+			elseif require("copilot.suggestion").is_visible() then
+				require("copilot.suggestion").accept()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			else
@@ -130,7 +169,44 @@ cmp.setup({
 	}),
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "copilot", group_index = 2 },
 		{ name = "luasnip" },
 		{ name = "path" },
 	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			-- Kind icons
+			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+			vim_item.menu = ({
+				nvim_lsp = "[LSP]",
+				luasnip = "[Snippet]",
+				path = "[Path]",
+				copilot = "[Copilot]",
+			})[entry.source.name]
+			return vim_item
+		end,
+	},
+	confirm_opts = {
+		behavior = cmp.ConfirmBehavior.Replace,
+		select = false,
+	},
+	window = {
+		documentation = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		},
+	},
+	experimental = {
+		ghost_text = false,
+		native_menu = false,
+	},
 })
+
+-- Diagnostics
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set("n", "<space>cf", vim.diagnostic.open_float, { desc = "[F]loat Diagnostic" })
+vim.keymap.set("n", "<space>cn", vim.diagnostic.goto_prev, { desc = "[N]ext Diagnostic" })
+vim.keymap.set("n", "<space>cp", vim.diagnostic.goto_next, { desc = "[P]revious Diagnostic" })
+vim.keymap.set("n", "<space>cl", vim.diagnostic.setloclist, { desc = "[L]ist Diagnostics" })
