@@ -1,0 +1,12 @@
+/*
+/*/
+!/.gitignore
+
+!/bin/
+!/nvim/
+!/tmux/
+
+!/zsh/
+/zsh/.zcompdump
+/zsh/.p10k.zsh
+/zsh/.zsh_history

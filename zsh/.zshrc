@@ -10,14 +10,15 @@ export NVM_DIR="$HOME/.nvm"
 
 bindkey -s ^f "^Q~/.config/bin/tmux-sessionizer^M"  
 
-export LESSHISTFILE=/home/plurn/.cache/lesshst
+export LESSHISTFILE=/home/ryan/.cache/lesshst
 export BROWSER=wslview
-export KUBECONFIG=/home/plurn/.kube/homelab.kubeconfig
+export KUBECONFIG=/home/ryan/.kube/homelab.kubeconfig
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin:/home/plurn/go/bin
+export PATH=$PATH:/usr/local/go/bin:/home/ryan/go/bin
+export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -104,7 +105,7 @@ complete -F __start_kubectl k
 
 alias kcd='kubectl config set-context $(kubectl config current-context) --namespace '
 alias kexec='kubectl exec --stdin --tty '
-alias kind_context='export KUBECONFIG=/home/plurn/.kube/config && config use-context kind-'
+alias kind_context='export KUBECONFIG=/home/ryan/.kube/config && config use-context kind-'
 
 alias dockremove="docker rm \$(docker ps --filter status=exited -q)"
 alias docklist='docker container ls --format "\nContainer Name: {{.Names}}\nID: {{.ID}}\nImage: {{.Image}}\nCreated: {{.CreatedAt}}\nStatus: {{.Status}}\nNetworks: {{.Networks}}\nPorts: {{.Ports}}\n"'
@@ -131,6 +132,9 @@ alias cc='cc -Wall -Werror -Wextra'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
