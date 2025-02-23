@@ -11,24 +11,6 @@ return {
 	-- Detect tabstop and shiftwidth automatically
 	-- 'tpope/vim-sleuth',
 
-	-- LSP Plugins
-	{
-		-- LSP Configuration & Plugins
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			-- Automatically install LSPs to stdpath for neovim
-			{ "williamboman/mason.nvim", config = true },
-			"williamboman/mason-lspconfig.nvim",
-
-			-- Useful status updates for LSP
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", opts = {} },
-
-			-- Additional lua configuration, makes nvim stuff amazing!
-			"folke/neodev.nvim",
-		},
-	},
-
 	{
 		-- Autocompletion
 		"hrsh7th/nvim-cmp",
@@ -47,7 +29,13 @@ return {
 	},
 
 	-- Useful plugin to show you pending keybinds.
-	{ "folke/which-key.nvim", opts = {} },
+	{
+		"echasnovski/mini.icons",
+		opts = {},
+		lazy = true,
+	},
+	{ "nvim-tree/nvim-web-devicons", opts = {} },
+	{ "folke/which-key.nvim", opts = {}, version = "v2.1.0" },
 
 	{
 		-- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -172,6 +160,10 @@ return {
 		},
 		build = ":TSUpdate",
 	},
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+  },
 
 	{
 		"mbbill/undotree",
